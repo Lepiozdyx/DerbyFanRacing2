@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  DerbyFanRacing
-//
-//  Created by Alex on 16.02.2026.
-//
-
 import SwiftUI
 
 struct ContentView: View {
