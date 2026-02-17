@@ -25,7 +25,7 @@ struct MainTabView: View {
                     Label("Stats", systemImage: Constants.Icons.stats)
                 }
             
-            SettingsView()
+            SettingsView(viewModel: settingsViewModel)
                 .tabItem {
                     Label("Settings", systemImage: Constants.Icons.settings)
                 }

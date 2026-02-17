@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
-    @State private var viewModel = SettingsViewModel()
+    @Bindable var viewModel: SettingsViewModel
     
     var body: some View {
         NavigationStack {
@@ -117,5 +117,5 @@ struct SettingsView: View {
 }
 
 #Preview {
-    SettingsView()
+    SettingsView(viewModel: SettingsViewModel())
 }
