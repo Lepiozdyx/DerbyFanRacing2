@@ -50,7 +50,7 @@ struct HorseFormView: View {
                                     Image(uiImage: uiImage)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: Constants.Components.photoFrame)
+                                        .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
                                         .clipShape(Circle())
                                         .overlay(
                                             Circle()
@@ -60,7 +60,6 @@ struct HorseFormView: View {
                                     ZStack {
                                         Circle()
                                             .fill(.accent.opacity(0.2))
-                                            .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
                                         
                                         VStack(spacing: Constants.Spacing.s) {
                                             Image(systemName: "camera.fill")
@@ -72,6 +71,7 @@ struct HorseFormView: View {
                                                 .foregroundStyle(.secondary)
                                         }
                                     }
+                                    .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
                                 }
                             }
                             .frame(maxWidth: .infinity)

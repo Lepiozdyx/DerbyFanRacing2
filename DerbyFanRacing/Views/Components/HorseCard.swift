@@ -11,18 +11,18 @@ struct HorseCard: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: Constants.Components.circleFrame)
+                        .frame(width: Constants.Components.circleFrame, height: Constants.Components.circleFrame)
                         .clipShape(Circle())
                 } else {
                     ZStack {
                         Circle()
                             .fill(.accent.opacity(0.2))
-                            .frame(width: Constants.Components.circleFrame)
                         
                         Text(horse.initial)
                             .font(Constants.Fonts.largeTitle)
                             .foregroundStyle(.accent)
                     }
+                    .frame(width: Constants.Components.circleFrame, height: Constants.Components.circleFrame)
                 }
                 
                 VStack(alignment: .leading, spacing: Constants.Spacing.s) {

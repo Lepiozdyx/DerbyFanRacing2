@@ -25,18 +25,18 @@ struct HorseDetailView: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: Constants.Components.photoFrame)
+                        .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
                         .clipShape(Circle())
                 } else {
                     ZStack {
                         Circle()
                             .fill(.accent.opacity(0.2))
-                            .frame(width: Constants.Components.photoFrame)
                         
                         Text(horse.initial)
                             .font(Constants.Fonts.largeTitle)
                             .foregroundStyle(Color.accentColor)
                     }
+                    .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
                 }
                 
                 VStack(alignment: .leading, spacing: Constants.Spacing.l) {
