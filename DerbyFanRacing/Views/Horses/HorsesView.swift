@@ -87,6 +87,7 @@ struct HorsesView: View {
             }
             .sheet(isPresented: $showingAddHorse) {
                 HorseFormView(viewModel: viewModel)
+                    .presentationDragIndicator(.visible)
             }
         }
     }

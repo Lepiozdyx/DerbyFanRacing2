@@ -247,6 +247,7 @@ struct RaceFormView: View {
             .navigationBarTitleDisplayMode(.inline)
             .sheet(isPresented: $showingAddParticipant) {
                 AddParticipantView(participants: $participants)
+                    .presentationDragIndicator(.visible)
             }
         }
     }

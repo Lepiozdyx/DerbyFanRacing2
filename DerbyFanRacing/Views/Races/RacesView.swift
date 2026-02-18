@@ -7,15 +7,36 @@ struct RacesView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .topTrailing) {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        LogoHeader()
-                        
-                        VStack(alignment: .leading, spacing: Constants.Spacing.l) {
-                            Text("Race Journal")
-                                .font(Constants.Fonts.largeTitle)
-                                .foregroundStyle(.primary)
+            ZStack {
+                VStack(spacing: Constants.Spacing.xs) {
+                    LogoHeader()
+                    
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: Constants.Spacing.m) {
+                            HStack {
+                                Text("Race Journal")
+                                    .font(Constants.Fonts.largeTitle)
+                                    .foregroundStyle(.primary)
+                                
+                                Spacer()
+                                
+                                Button {
+                                    showingAddRace = true
+                                } label: {
+                                    HStack(spacing: Constants.Spacing.s) {
+                                        Image(systemName: "plus")
+                                            .font(Constants.Fonts.text)
+                                        
+                                        Text("New Race")
+                                            .font(Constants.Fonts.text)
+                                    }
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, Constants.Spacing.l)
+                                    .padding(.vertical, Constants.Spacing.m)
+                                    .background(.accent)
+                                    .cornerRadius(Constants.CornerRadius.radius/2)
+                                }
+                            }
                             
                             Text("Track and analyze horse racing performance")
                                 .font(Constants.Fonts.subtitle)
@@ -33,7 +54,7 @@ struct RacesView: View {
                             )
                             .padding(.top, Constants.Spacing.xxl)
                         } else {
-                            LazyVStack(spacing: Constants.Spacing.l) {
+                            LazyVStack(spacing: Constants.Spacing.s) {
                                 ForEach(viewModel.races) { race in
                                     NavigationLink(destination: RaceDetailView(race: race, viewModel: viewModel)) {
                                         RaceCard(race: race)
@@ -46,25 +67,10 @@ struct RacesView: View {
                     }
                 }
                 .background(colorScheme == .dark ? Color("backgroundDark") : Color("background"))
-                
-                Button(action: { showingAddRace = true }) {
-                    HStack(spacing: Constants.Spacing.s) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 14, weight: .semibold))
-                        Text("New Race")
-                            .font(Constants.Fonts.text)
-                    }
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, Constants.Spacing.l)
-                    .padding(.vertical, Constants.Spacing.m)
-                    .background(Color.accentColor)
-                    .cornerRadius(Constants.CornerRadius.radius)
-                }
-                .padding(.top, 76)
-                .padding(.trailing, Constants.Spacing.l)
             }
             .sheet(isPresented: $showingAddRace) {
                 RaceFormView(viewModel: viewModel)
+                    .presentationDragIndicator(.visible)
             }
         }
     }

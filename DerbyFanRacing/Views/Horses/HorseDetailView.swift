@@ -207,6 +207,7 @@ struct HorseDetailView: View {
         }
         .sheet(isPresented: $showingEditSheet) {
             HorseFormView(viewModel: viewModel, editingHorse: horse)
+                .presentationDragIndicator(.visible)
         }
         .alert("Delete Horse", isPresented: $showingDeleteAlert) {
             Button("Cancel", role: .cancel) { }
