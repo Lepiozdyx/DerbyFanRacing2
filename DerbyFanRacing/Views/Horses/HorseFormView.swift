@@ -15,6 +15,7 @@ struct HorseFormView: View {
     @State private var notes = ""
     @State private var photoItem: PhotosPickerItem?
     @State private var photoData: Data?
+    @FocusState private var isFocused: Bool
     
     init(viewModel: HorsesViewModel, editingHorse: Horse? = nil) {
         self.viewModel = viewModel
@@ -90,6 +91,7 @@ struct HorseFormView: View {
                                 
                                 TextField("e.g., Thunder Road", text: $name)
                                     .textFieldStyle(.plain)
+                                    .focused($isFocused)
                                     .padding(Constants.Spacing.m)
                                     .frame(height: Constants.Components.textField)
                                     .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -123,6 +125,7 @@ struct HorseFormView: View {
                                     TextField("4", text: $age)
                                         .textFieldStyle(.plain)
                                         .keyboardType(.numberPad)
+                                        .focused($isFocused)
                                         .padding(Constants.Spacing.m)
                                         .frame(height: Constants.Components.textField)
                                         .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -155,6 +158,7 @@ struct HorseFormView: View {
                                 
                                 TextField("e.g., Krasnodar Stables", text: $breeder)
                                     .textFieldStyle(.plain)
+                                    .focused($isFocused)
                                     .padding(Constants.Spacing.m)
                                     .frame(height: Constants.Components.textField)
                                     .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -168,6 +172,7 @@ struct HorseFormView: View {
                                 
                                 TextEditor(text: $notes)
                                     .frame(height: 120)
+                                    .focused($isFocused)
                                     .padding(Constants.Spacing.s)
                                     .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
                                     .cornerRadius(Constants.CornerRadius.radius)
@@ -201,6 +206,7 @@ struct HorseFormView: View {
                 }
                 .padding(Constants.Spacing.l)
             }
+            .onTapGesture { isFocused = false }
             .background(colorScheme == .dark ? Color("backgroundDark") : Color("background"))
             .navigationTitle(editingHorse == nil ? "Add Horse" : "Edit Horse")
             .navigationBarTitleDisplayMode(.inline)

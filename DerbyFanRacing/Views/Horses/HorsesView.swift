@@ -4,6 +4,7 @@ struct HorsesView: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var viewModel = HorsesViewModel()
     @State private var showingAddHorse = false
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         NavigationStack {
@@ -52,6 +53,7 @@ struct HorsesView: View {
                                 
                                 TextField("Search horses by name, breed, or color...", text: $viewModel.searchText)
                                     .textFieldStyle(.plain)
+                                    .focused($isFocused)
                                 
                                 if !viewModel.searchText.isEmpty {
                                     Button(action: { viewModel.searchText = "" }) {
@@ -88,6 +90,7 @@ struct HorsesView: View {
                         }
                     }
                 }
+                .onTapGesture { isFocused = false }
                 .background(colorScheme == .dark ? Color("backgroundDark") : Color("background"))
             }
             .sheet(isPresented: $showingAddHorse) {

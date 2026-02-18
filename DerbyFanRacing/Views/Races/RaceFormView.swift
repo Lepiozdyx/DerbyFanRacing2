@@ -15,6 +15,7 @@ struct RaceFormView: View {
     @State private var temperature = "20"
     @State private var participants: [Participant] = []
     @State private var showingAddParticipant = false
+    @FocusState private var isFocused: Bool
     
     init(viewModel: RacesViewModel, editingRace: Race? = nil) {
         self.viewModel = viewModel
@@ -53,6 +54,7 @@ struct RaceFormView: View {
                                 
                                 TextField("e.g., Southern Cup", text: $name)
                                     .textFieldStyle(.plain)
+                                    .focused($isFocused)
                                     .padding(Constants.Spacing.m)
                                     .frame(height: Constants.Components.textField)
                                     .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -66,6 +68,7 @@ struct RaceFormView: View {
                                 
                                 TextField("e.g., Krasnodar", text: $racetrack)
                                     .textFieldStyle(.plain)
+                                    .focused($isFocused)
                                     .padding(Constants.Spacing.m)
                                     .frame(height: Constants.Components.textField)
                                     .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -96,6 +99,7 @@ struct RaceFormView: View {
                                     TextField("1600", text: $distance)
                                         .textFieldStyle(.plain)
                                         .keyboardType(.numberPad)
+                                        .focused($isFocused)
                                         .padding(Constants.Spacing.m)
                                         .frame(height: Constants.Components.textField)
                                         .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -148,6 +152,7 @@ struct RaceFormView: View {
                                 TextField("20", text: $temperature)
                                     .textFieldStyle(.plain)
                                     .keyboardType(.numberPad)
+                                    .focused($isFocused)
                                     .padding(Constants.Spacing.m)
                                     .frame(height: Constants.Components.textField)
                                     .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
@@ -242,6 +247,7 @@ struct RaceFormView: View {
                 }
                 .padding(Constants.Spacing.l)
             }
+            .onTapGesture { isFocused = false }
             .background(colorScheme == .dark ? Color("backgroundDark") : Color("background"))
             .navigationTitle(editingRace == nil ? "New Race" : "Edit Race")
             .navigationBarTitleDisplayMode(.inline)
@@ -291,6 +297,7 @@ struct AddParticipantView: View {
     
     @State private var selectedHorseId: UUID?
     @State private var observationNotes = ""
+    @FocusState private var isFocused: Bool
     
     private var horses: [Horse] {
         StorageManager.shared.horses
@@ -334,6 +341,7 @@ struct AddParticipantView: View {
                     
                     TextEditor(text: $observationNotes)
                         .frame(height: Constants.Components.textEditor)
+                        .focused($isFocused)
                         .padding(Constants.Spacing.s)
                         .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
                         .cornerRadius(Constants.CornerRadius.radius)
@@ -358,6 +366,7 @@ struct AddParticipantView: View {
                 Spacer()
             }
             .padding(Constants.Spacing.l)
+            .onTapGesture { isFocused = false }
             .background(colorScheme == .dark ? Color("backgroundDark") : Color("background"))
             .navigationTitle("Add Participant")
             .navigationBarTitleDisplayMode(.inline)
