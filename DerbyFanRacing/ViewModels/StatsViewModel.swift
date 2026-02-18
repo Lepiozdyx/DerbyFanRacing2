@@ -34,20 +34,36 @@ class StatsViewModel {
     }
     
     var raceActivityOverTime: [RaceActivityData] {
-        _ = Calendar.current
+        let calendar = Calendar.current
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM yyyy"
-        
+
         let grouped = Dictionary(grouping: storageManager.races) { race in
             dateFormatter.string(from: race.date)
         }
-        
-        return grouped.map { month, races in
-            RaceActivityData(month: month, count: races.count)
-        }.sorted { month1, month2 in
-            let date1 = dateFormatter.date(from: month1.month) ?? Date()
-            let date2 = dateFormatter.date(from: month2.month) ?? Date()
-            return date1 < date2
+
+        guard !grouped.isEmpty else { return [] }
+
+        let allDates = storageManager.races.map { $0.date }
+        let earliestMonthStart = calendar.date(from: calendar.dateComponents([.year, .month], from: allDates.min()!))!
+        let latestMonthStart = calendar.date(from: calendar.dateComponents([.year, .month], from: allDates.max()!))!
+
+        let monthSpan = (calendar.dateComponents([.month], from: earliestMonthStart, to: latestMonthStart).month ?? 0) + 1
+        let displayMonths = max(4, min(6, monthSpan))
+
+        let startDate: Date
+        if monthSpan > 6 {
+            startDate = calendar.date(byAdding: .month, value: -5, to: latestMonthStart)!
+        } else if monthSpan < 4 {
+            startDate = calendar.date(byAdding: .month, value: -(4 - monthSpan), to: earliestMonthStart)!
+        } else {
+            startDate = earliestMonthStart
+        }
+
+        return (0..<displayMonths).map { i in
+            let date = calendar.date(byAdding: .month, value: i, to: startDate)!
+            let key = dateFormatter.string(from: date)
+            return RaceActivityData(month: key, count: grouped[key]?.count ?? 0)
         }
     }
     
