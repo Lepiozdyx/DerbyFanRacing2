@@ -50,7 +50,7 @@ struct HorseFormView: View {
                                     Image(uiImage: uiImage)
                                         .resizable()
                                         .scaledToFill()
-                                        .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
+                                        .frame(width: Constants.Components.photoFrame)
                                         .clipShape(Circle())
                                         .overlay(
                                             Circle()
@@ -59,12 +59,12 @@ struct HorseFormView: View {
                                 } else {
                                     ZStack {
                                         Circle()
-                                            .fill(Color("derbyGray"))
+                                            .fill(.accent.opacity(0.2))
                                             .frame(width: Constants.Components.photoFrame, height: Constants.Components.photoFrame)
                                         
                                         VStack(spacing: Constants.Spacing.s) {
                                             Image(systemName: "camera.fill")
-                                                .font(.system(size: 32))
+                                                .font(Constants.Fonts.largeTitle)
                                                 .foregroundStyle(Color.accentColor)
                                             
                                             Text("Add Photo")

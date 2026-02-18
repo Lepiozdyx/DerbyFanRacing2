@@ -6,11 +6,11 @@ struct SettingsView: View {
     
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    LogoHeader()
-                    
-                    VStack(alignment: .leading, spacing: Constants.Spacing.l) {
+            VStack(spacing: Constants.Spacing.xs) {
+                LogoHeader()
+                
+                ScrollView {
+                    VStack(alignment: .leading, spacing: Constants.Spacing.m) {
                         Text("Settings")
                             .font(Constants.Fonts.largeTitle)
                             .foregroundStyle(.primary)

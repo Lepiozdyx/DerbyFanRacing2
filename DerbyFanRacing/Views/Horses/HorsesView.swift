@@ -7,15 +7,34 @@ struct HorsesView: View {
     
     var body: some View {
         NavigationStack {
-            ZStack(alignment: .topTrailing) {
-                ScrollView {
-                    VStack(spacing: 0) {
-                        LogoHeader()
-                        
-                        VStack(alignment: .leading, spacing: Constants.Spacing.l) {
-                            Text("Horse Catalog")
-                                .font(Constants.Fonts.largeTitle)
-                                .foregroundStyle(.primary)
+            ZStack {
+                VStack(spacing: Constants.Spacing.xs) {
+                    LogoHeader()
+                    
+                    ScrollView {
+                        VStack(alignment: .leading, spacing: Constants.Spacing.m) {
+                            HStack {
+                                Text("Horse Catalog")
+                                    .font(Constants.Fonts.largeTitle)
+                                    .foregroundStyle(.primary)
+                                
+                                Spacer()
+                                
+                                Button(action: { showingAddHorse = true }) {
+                                    HStack(spacing: Constants.Spacing.s) {
+                                        Image(systemName: "plus")
+                                            .font(Constants.Fonts.text)
+                                        
+                                        Text("Add Horse")
+                                            .font(Constants.Fonts.text)
+                                    }
+                                    .foregroundStyle(.white)
+                                    .padding(.horizontal, Constants.Spacing.l)
+                                    .padding(.vertical, Constants.Spacing.m)
+                                    .background(.accent)
+                                    .cornerRadius(Constants.CornerRadius.radius / 2)
+                                }
+                            }
                             
                             Text("Your personal database of racing horses")
                                 .font(Constants.Fonts.subtitle)
@@ -28,6 +47,7 @@ struct HorsesView: View {
                         if !viewModel.horses.isEmpty {
                             HStack {
                                 Image(systemName: "magnifyingglass")
+                                    .font(Constants.Fonts.caption)
                                     .foregroundStyle(.secondary)
                                 
                                 TextField("Search horses by name, breed, or color...", text: $viewModel.searchText)
@@ -36,6 +56,7 @@ struct HorsesView: View {
                                 if !viewModel.searchText.isEmpty {
                                     Button(action: { viewModel.searchText = "" }) {
                                         Image(systemName: "xmark.circle.fill")
+                                            .font(Constants.Fonts.caption)
                                             .foregroundStyle(.secondary)
                                     }
                                 }
@@ -55,7 +76,7 @@ struct HorsesView: View {
                             )
                             .padding(.top, Constants.Spacing.xxl)
                         } else {
-                            LazyVStack(spacing: Constants.Spacing.l) {
+                            LazyVStack(spacing: Constants.Spacing.s) {
                                 ForEach(viewModel.horses) { horse in
                                     NavigationLink(destination: HorseDetailView(horse: horse, viewModel: viewModel)) {
                                         HorseCard(horse: horse)
@@ -68,22 +89,6 @@ struct HorsesView: View {
                     }
                 }
                 .background(colorScheme == .dark ? Color("backgroundDark") : Color("background"))
-                
-                Button(action: { showingAddHorse = true }) {
-                    HStack(spacing: Constants.Spacing.s) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 14, weight: .semibold))
-                        Text("Add Horse")
-                            .font(Constants.Fonts.text)
-                    }
-                    .foregroundStyle(.white)
-                    .padding(.horizontal, Constants.Spacing.l)
-                    .padding(.vertical, Constants.Spacing.m)
-                    .background(Color.accentColor)
-                    .cornerRadius(Constants.CornerRadius.radius)
-                }
-                .padding(.top, 76)
-                .padding(.trailing, Constants.Spacing.l)
             }
             .sheet(isPresented: $showingAddHorse) {
                 HorseFormView(viewModel: viewModel)
