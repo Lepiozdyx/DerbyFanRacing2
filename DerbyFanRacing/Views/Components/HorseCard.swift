@@ -11,17 +11,17 @@ struct HorseCard: View {
                     Image(uiImage: uiImage)
                         .resizable()
                         .scaledToFill()
-                        .frame(width: Constants.Components.circleFrame, height: Constants.Components.circleFrame)
+                        .frame(width: Constants.Components.circleFrame)
                         .clipShape(Circle())
                 } else {
                     ZStack {
                         Circle()
-                            .fill(Color("derbyGray"))
-                            .frame(width: Constants.Components.circleFrame, height: Constants.Components.circleFrame)
+                            .fill(.accent.opacity(0.2))
+                            .frame(width: Constants.Components.circleFrame)
                         
                         Text(horse.initial)
-                            .font(.system(size: 28, weight: .semibold))
-                            .foregroundStyle(Color.accentColor)
+                            .font(Constants.Fonts.largeTitle)
+                            .foregroundStyle(.accent)
                     }
                 }
                 
@@ -47,14 +47,14 @@ struct HorseCard: View {
                         .font(Constants.Fonts.caption)
                         .padding(.horizontal, Constants.Spacing.m)
                         .padding(.vertical, Constants.Spacing.s)
-                        .background(Color("derbyBage"))
-                        .cornerRadius(Constants.CornerRadius.radius / 2)
+                        .background(Color.derbyBage.opacity(0.3))
+                        .cornerRadius(Constants.CornerRadius.radius / 3)
                 }
                 
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 14))
+                    .font(Constants.Fonts.caption)
                     .foregroundStyle(.secondary)
             }
             .padding(Constants.Spacing.l)

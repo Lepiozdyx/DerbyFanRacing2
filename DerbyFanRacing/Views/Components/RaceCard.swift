@@ -20,15 +20,11 @@ struct RaceCard: View {
                 Spacer()
                 
                 Image(systemName: "chevron.right")
-                    .font(.system(size: 14))
+                    .font(Constants.Fonts.caption)
                     .foregroundStyle(.secondary)
             }
             
             HStack(spacing: Constants.Spacing.s) {
-                Image(systemName: "calendar")
-                    .font(.system(size: 12))
-                    .foregroundStyle(.secondary)
-                
                 Text(dateFormatter.string(from: race.date))
                     .font(Constants.Fonts.subtitle)
                     .foregroundStyle(.secondary)
@@ -53,7 +49,7 @@ struct RaceCard: View {
                     .font(Constants.Fonts.caption)
                     .padding(.horizontal, Constants.Spacing.m)
                     .padding(.vertical, Constants.Spacing.s)
-                    .background(Color("derbyBage"))
+                    .background(Color.derbyBage.opacity(0.3))
                     .cornerRadius(Constants.CornerRadius.radius / 2)
                 
                 if !race.participants.isEmpty {

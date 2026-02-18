@@ -11,6 +11,7 @@ struct LogoHeader: View {
             .frame(height: 60)
             .padding(.vertical, Constants.Spacing.m)
             .background(colorScheme == .dark ? Color("cardColorDark") : Color("cardColor"))
+            .shadow(radius: 0.5, y: 0.5)
     }
 }
 
