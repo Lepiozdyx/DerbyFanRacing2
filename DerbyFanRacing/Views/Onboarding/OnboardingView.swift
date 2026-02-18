@@ -6,6 +6,16 @@ struct OnboardingView: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Spacer()
+                Button("Skip") {
+                    hasCompletedOnboarding = true
+                }
+                .font(Constants.Fonts.text)
+                .foregroundStyle(.accent)
+                .padding(.horizontal, 24)
+                .padding(.top, 8)
+            }
             TabView(selection: $currentPage) {
                 ForEach(0..<pages.count, id: \.self) { index in
                     PageView(page: pages[index])
