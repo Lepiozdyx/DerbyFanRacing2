@@ -109,9 +109,10 @@ struct CalendarView: View {
                                 }
                                 
                                 let columns = Array(repeating: GridItem(.flexible()), count: 7)
+                                let days = daysInMonth
                                 LazyVGrid(columns: columns, spacing: Constants.Spacing.m) {
-                                    ForEach(0..<daysInMonth.count, id: \.self) { index in
-                                        if let date = daysInMonth[index] {
+                                    ForEach(Array(days.enumerated()), id: \.offset) { _, date in
+                                        if let date {
                                             CalendarDayCell(
                                                 date: date,
                                                 isSelected: calendar.isDate(date, inSameDayAs: viewModel.selectedDate ?? Date.distantPast),
