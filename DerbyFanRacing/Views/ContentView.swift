@@ -1,13 +1,34 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding = false
     
+    @StateObject private var manager = AppStateManager()
+        
     var body: some View {
-        if hasCompletedOnboarding {
-            MainTabView()
-        } else {
-            OnboardingView()
+        Group {
+            switch manager.appState {
+            case .request:
+                LoadingView()
+                
+            case .support:
+                if let url = manager.networkManager.derbyURL {
+                    WKWebViewManager(
+                        url: url,
+                        webManager: manager.networkManager
+                    )
+                } else {
+                    WKWebViewManager(
+                        url: NetworkManager.initialURL,
+                        webManager: manager.networkManager
+                    )
+                }
+                
+            case .loading:
+                RootView()
+            }
+        }
+        .onAppear {
+            manager.stateRequest()
         }
     }
 }
